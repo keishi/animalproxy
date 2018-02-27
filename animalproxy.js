@@ -133,6 +133,7 @@ function rawInput(sdk) {
         });
         return;
     }
+    let animal = state["animal"];
     if (detectGoodBye(input)) {
         sdk.ask({ speech: "またねー", displayText: "またねー" }, {
             animal: ""
