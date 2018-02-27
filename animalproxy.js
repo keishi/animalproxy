@@ -85,11 +85,11 @@ for (let animal of ANIMALS) {
     let ns = io.of(`/${animal}`);
     ns.on('connection', function (socket) {
         console.log("connection", animal);
-        if (Object.keys(ns.connected).length) {
-            socket.emit('error', {
-                message: 'Animal is already connected'
-            });
-        }
+        //if (Object.keys(ns.connected).length > 0) {
+        //    socket.emit('error', {
+        //        message: 'Animal is already connected'
+        //    });
+        //}
     });
 }
 
