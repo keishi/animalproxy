@@ -13,6 +13,12 @@ const server = http.createServer(app);
 var io = require('socket.io')(server);
 
 const ANIMALS = [
+    "cat",
+    "bear",
+    "blackgoat",
+    "whitegoat",
+    "fox",
+    "ant",
     "elephant",
     "lion",
     "giraffe",
@@ -21,11 +27,16 @@ const ANIMALS = [
     "penguin",
     "flamingo",
     "pelican",
-    "panda",
-    "ostrich"
+    "panda"
 ];
 
 let ANIMAL_PATTERNS = [
+    ["cat", /(?:ネコ|猫|ねこ)さん/],
+    ["bear", /(?:クマ|熊|くま)さん/],
+    ["blackgoat", /黒(?:ヤギ|山羊|やぎ)さん/],
+    ["whitegoat", /白(?:ヤギ|山羊|やぎ)さん/],
+    ["fox", /(?:キツネ|狐|きつね)さん/],
+    ["ant", /(?:アリ|蟻|あり)さん/],
     ["elephant", /(?:ゾウ|象|ぞう)さん/],
     ["lion", /ライオンさん/],
     ["giraffe", /(?:キリン|麒麟|きりん)さん/],
@@ -34,8 +45,7 @@ let ANIMAL_PATTERNS = [
     ["penguin", /ペンギンさん/],
     ["flamingo", /フラミンゴさん/],
     ["pelican", /ペリカンさん/],
-    ["panda", /パンダさん/],
-    ["ostrich", /(?:ダチョー|ダチョウ|だちょう)さん/],
+    ["panda", /パンダさん/]
 ];
 function detectAnimal(str) {
     for (let item of ANIMAL_PATTERNS) {
@@ -46,6 +56,12 @@ function detectAnimal(str) {
 }
 
 const LOCALIZED_STRINGS = {
+    "cat": "ネコさん",
+    "bear": "クマさん",
+    "blackgoat": "黒ヤギさん",
+    "whitegoat": "白ヤギさん",
+    "fox": "キツネさん",
+    "ant": "アリさん",
     "elephant": "ゾウさん",
     "lion": "ライオンさん",
     "giraffe": "キリンさん",
@@ -54,8 +70,7 @@ const LOCALIZED_STRINGS = {
     "penguin": "ペンギンさん",
     "flamingo": "フラミンゴさん",
     "pelican": "ペリカンさん",
-    "panda": "パンダさん",
-    "ostrich": "ダチョウさん"
+    "panda": "パンダさん"
 };
 
 function localize(str) {
