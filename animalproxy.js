@@ -84,7 +84,7 @@ function detectGoodBye(str) {
 for (let animal of ANIMALS) {
     let ns = io.of(`/${animal}`);
     ns.on('connection', function (socket) {
-        console.log("connection", animal);
+        console.log("connection", animal, socket);
         if (Object.keys(ns.connected).length > 0) {
             socket.emit('ConnectionFailed', {
                 message: `Animal is already connected: ${animal}`
@@ -149,6 +149,7 @@ function rawInput(sdk) {
             reject();
             return;
         }
+        console.log("search", animal, socket);
         socket.emit('search', {
             query: input
         }, (data) => {
