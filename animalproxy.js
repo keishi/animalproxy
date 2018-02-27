@@ -25,24 +25,41 @@ const ANIMALS = [
     "ostrich"
 ];
 
+let ANIMAL_PATTERNS = [
+    ["elephant", /(?:ゾウ|象|ぞう)さん/],
+    ["lion", /ライオンさん/],
+    ["giraffe", /(?:キリン|麒麟|きりん)さん/],
+    ["hippo", /(?:カバ|かば)さん/],
+    ["zebra", /(?:シマウマ|縞馬|しまうま)さん/],
+    ["penguin", /ペンギンさん/],
+    ["flamingo", /フラミンゴさん/],
+    ["pelican", /ペリカンさん/],
+    ["panda", /パンダさん/],
+    ["ostrich", /(?:ダチョウ|だちょう)さん/],
+];
 function detectAnimal(str) {
-    let patterns = [
-        ["elephant", /(?:ゾウ|象|ぞう)さん/],
-        ["lion", /ライオンさん/],
-        ["giraffe", /(?:キリン|麒麟|きりん)さん/],
-        ["hippo", /(?:カバ|かば)さん/],
-        ["zebra", /(?:シマウマ|縞馬|しまうま)さん/],
-        ["penguin", /ペンギンさん/],
-        ["flamingo", /フラミンゴさん/],
-        ["pelican", /ペリカンさん/],
-        ["panda", /パンダさん/],
-        ["ostrich", /(?:ダチョウ|だちょう)さん/],
-    ];
-    for (let item of patterns) {
+    for (let item of ANIMAL_PATTERNS) {
         if (item[1].test(str))
             return item[0];
     }
     return "";
+}
+
+const LOCALIZED_STRINGS = {
+    "elephant": "ゾウさん",
+    "lion": "ライオンさん",
+    "giraffe": "キリンさん",
+    "hippo": "カバさん",
+    "zebra": "シマウマさん",
+    "penguin": "ペンギンさん",
+    "flamingo": "フラミンゴさん",
+    "pelican": "ペリカンさん",
+    "panda": "パンダさん",
+    "ostrich": "ダチョウさん"
+};
+
+function localize(str) {
+    return LOCALIZED_STRINGS[str];
 }
 
 function detectGoodBye(str) {
