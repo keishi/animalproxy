@@ -35,7 +35,7 @@ let ANIMAL_PATTERNS = [
     ["flamingo", /フラミンゴさん/],
     ["pelican", /ペリカンさん/],
     ["panda", /パンダさん/],
-    ["ostrich", /(?:ダチョウ|だちょう)さん/],
+    ["ostrich", /(?:ダチョー|ダチョウ|だちょう)さん/],
 ];
 function detectAnimal(str) {
     for (let item of ANIMAL_PATTERNS) {
@@ -98,16 +98,21 @@ function rawInput(sdk) {
     if (!state["animal"]) {
         let animal = detectAnimal(input);
         if (animal) {
-            if (Object.keys(io.of(`/${animal}`).connected).length > 0) {
-                sdk.ask({
-                    speech: `もしもし。${localize(animal)}です。何が知りたいですか？`,
-                    displayText: `もしもし。${localize(animal)}です。何が知りたいですか？`
-                }, {
-                    animal: animal
+            console.assert(ANIMALS.indexOf(animal) != -1);
+            if (Object.keys(io.of(`/${animal}`).connected).length == 0) {
+                sdk.ask({ speech: `${localize(animal)}は不在のようです。誰と話しますか？`, displayText: `${localize(animal)}は不在のようです。誰と話しますか？` }, {
+                    animal: ""
                 });
                 return;
             }
-            sdk.tell(`${localize(animal)}は不在のようです。`);
+            sdk.ask({
+                speech: `もしもし。${localize(animal)}です。何が知りたいですか？`,
+                displayText: `もしもし。${localize(animal)}です。何が知りたいですか？`
+            }, {
+                animal: animal
+            });
+            return;
+            
         }
         sdk.ask({ speech: "誰と話しますか？", displayText: "誰と話しますか？" }, {
             animal: ""
