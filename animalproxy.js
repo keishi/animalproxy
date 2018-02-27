@@ -81,11 +81,10 @@ function detectGoodBye(str) {
     return /失礼（?:致|いた）?しま/.test(str);
 }
 
-const connected = {};
-
 for (let animal of ANIMALS) {
     let ns = io.of(`/${animal}`);
     ns.on('connection', function (socket) {
+        console.log("connection", animal);
         if (Object.keys(ns.connected).length) {
             socket.emit('error', {
                 message: 'Animal is already connected'
@@ -95,6 +94,7 @@ for (let animal of ANIMALS) {
 }
 
 app.get('/', (req, res) => res.send('Welcome to AnimalProxy!'));
+app.get('/2', (req, res) => res.send('Welcome to AnimalProxy2!'));
 
 
 function mainIntent(sdk) {
