@@ -9,7 +9,7 @@ const ActionsSdkApp = require('actions-on-google').ActionsSdkApp;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-const server = app.listen(8080, () => console.log('Listening on port 8080!'))
+const server = http.Server(app);
 var io = require('socket.io')(server);
 
 const ANIMALS = [
@@ -166,3 +166,5 @@ app.post('/', function (request, response, next) {
 
     sdk.handleRequestAsync(actionMap);
 });
+
+server.listen(8080, () => console.log('Listening on port 8080!'));
