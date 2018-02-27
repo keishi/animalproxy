@@ -84,12 +84,17 @@ function detectGoodBye(str) {
 for (let animal of ANIMALS) {
     let ns = io.of(`/${animal}`);
     ns.on('connection', function (socket) {
-        console.log("connection", animal);
-        //if (Object.keys(ns.connected).length > 0) {
-        //    socket.emit('error', {
-        //        message: 'Animal is already connected'
-        //    });
-        //}
+        console.log("connection", animal, ns.connected);
+        if (Object.keys(ns.connected).length > 0) {
+            try {
+                socket.emit('error', {
+                    message: 'Animal is already connected'
+                });
+            } catch (error) {
+                console.log(error);
+                throw error;
+            }
+        }
     });
 }
 
