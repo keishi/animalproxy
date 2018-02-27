@@ -9,7 +9,7 @@ const ActionsSdkApp = require('actions-on-google').ActionsSdkApp;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-const server = http.createServer(app);
+const server = app.listen(8080, () => console.log('Listening on port 8080!'))
 var io = require('socket.io')(server);
 
 const ANIMALS = [
@@ -94,7 +94,6 @@ for (let animal of ANIMALS) {
 }
 
 app.get('/', (req, res) => res.send('Welcome to AnimalProxy!'));
-app.get('/2', (req, res) => res.send('Welcome to AnimalProxy2!'));
 
 
 function mainIntent(sdk) {
@@ -167,5 +166,3 @@ app.post('/', function (request, response, next) {
 
     sdk.handleRequestAsync(actionMap);
 });
-
-app.listen(8080, () => console.log('Listening on port 8080!'))
