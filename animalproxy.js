@@ -87,7 +87,7 @@ for (let animal of ANIMALS) {
         console.log("connection", animal, ns.connected);
         if (Object.keys(ns.connected).length > 0) {
             try {
-                socket.emit('error', {
+                socket.emit('xxx', {
                     message: 'Animal is already connected'
                 });
             } catch (error) {
