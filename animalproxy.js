@@ -100,10 +100,12 @@ for (let animal of ANIMALS) {
         console.log("ns.use Object.keys(ns.connected).length", Object.keys(ns.connected).length);
         if (Object.keys(ns.connected).length > 0) {
             next(new Error('Authentication error'));
+            socket.disconnect(true);
             return;
         }
         next();
     });
+    ns.on('test', (x) =>{console.log(x)})
 }
 
 app.get('/', (req, res) => res.send('Welcome to AnimalProxy!'));
