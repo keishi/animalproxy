@@ -88,7 +88,7 @@ function getSocketForAnimal(animal) {
 for (let animal of ANIMALS) {
     let ns = io.of(`/${animal}`);
     ns.on('connection', function (socket) {
-        console.log("connection", animal, socket, Object.keys(ns.connected).length);
+        console.log("connection", animal, Object.keys(ns.connected).length);
         if (Object.keys(ns.connected).length > 0) {
             socket.emit('ConnectionFailed', {
                 message: `Animal is already connected: ${animal}`
