@@ -81,15 +81,28 @@ function detectGoodBye(str) {
     return /失礼（?:致|いた）?しま/.test(str);
 }
 
+function getSocketForAnimal(animal) {
+    return Object.values(io.of(`/${animal}`).connected)[0]
+}
+
 for (let animal of ANIMALS) {
     let ns = io.of(`/${animal}`);
     ns.on('connection', function (socket) {
-        console.log("connection", animal, socket);
+        console.log("connection", animal, socket, Object.keys(ns.connected).length);
         if (Object.keys(ns.connected).length > 0) {
             socket.emit('ConnectionFailed', {
                 message: `Animal is already connected: ${animal}`
             });
+            //socket.disconnect(true);
         }
+    });
+    ns.use((socket, next) => {
+        console.log("ns.use Object.keys(ns.connected).length", Object.keys(ns.connected).length);
+        if (Object.keys(ns.connected).length > 0) {
+            next(new Error('Authentication error'));
+            return;
+        }
+        next();
     });
 }
 
