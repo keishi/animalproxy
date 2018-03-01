@@ -98,9 +98,8 @@ for (let animal of ANIMALS) {
     });
     ns.use((socket, next) => {
         console.log("ns.use Object.keys(ns.connected).length", Object.keys(ns.connected).length);
-        if (Object.keys(ns.connected).length > 0) {
-            next(new Error('Authentication error'));
-            socket.disconnect(true);
+        if (OgetSocketForAnimal(animal)) {
+            next(new Error('Already connected'));
             return;
         }
         next();
