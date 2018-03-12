@@ -27,6 +27,7 @@ const ANIMALS = [
     "penguin",
     "flamingo",
     "pelican",
+    "iguana",
     "panda"
 ];
 
@@ -45,6 +46,7 @@ let ANIMAL_PATTERNS = [
     ["penguin", /ペンギンさん/],
     ["flamingo", /フラミンゴさん/],
     ["pelican", /ペリカンさん/],
+    ["iguana", /イグアナさん/],
     ["panda", /パンダさん/]
 ];
 function detectAnimal(str) {
@@ -70,6 +72,7 @@ const LOCALIZED_STRINGS = {
     "penguin": "ペンギンさん",
     "flamingo": "フラミンゴさん",
     "pelican": "ペリカンさん",
+    "iguana": "イグアナさん",
     "panda": "パンダさん"
 };
 
@@ -78,7 +81,7 @@ function localize(str) {
 }
 
 function detectGoodBye(str) {
-    return /失礼（?:致|いた）?しま/.test(str);
+    return str == "さようなら" || /(?:失礼（?:致|いた）?しま)/.test(str);
 }
 
 function getSocketForAnimal(animal) {
@@ -104,7 +107,7 @@ for (let animal of ANIMALS) {
         }
         next();
     });
-    ns.on('test', (x) =>{console.log(x)})
+    ns.on('test', (x) => { console.log(x) })
 }
 
 app.get('/', (req, res) => res.send('Welcome to AnimalProxy!'));
@@ -137,10 +140,10 @@ function rawInput(sdk) {
                 speech: `もしもし。${localize(animal)}です。何が知りたいですか？`,
                 displayText: `もしもし。${localize(animal)}です。何が知りたいですか？`
             }, {
-                animal: animal
-            });
+                    animal: animal
+                });
             return;
-            
+
         }
         sdk.ask({ speech: "誰と話しますか？", displayText: "誰と話しますか？" }, {
             animal: ""
@@ -163,8 +166,7 @@ function rawInput(sdk) {
             reject();
             return;
         }
-        console.log("search", animal, socket);
-        socket.emit('search', {
+        socket.emit('action', {
             query: input
         }, (data) => {
             sdk.ask({ speech: data, displayText: data }, state);
