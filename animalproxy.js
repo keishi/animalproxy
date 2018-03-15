@@ -124,7 +124,7 @@ for (let animal of ANIMALS) {
     let ns = io.of(`/${animal}`);
     ns.on('connection', function (socket) {
         console.log("connection", animal, Object.keys(ns.connected).length);
-        if (Object.keys(ns.connected).length > 0) {
+        if (Object.keys(ns.connected).length > 1) {
             socket.emit('ConnectionFailed', {
                 message: `Animal is already connected: ${animal}`
             });
@@ -143,14 +143,14 @@ for (let animal of ANIMALS) {
             });
         });
     });
-    //ns.use((socket, next) => {
-    //    console.log("ns.use Object.keys(ns.connected).length", Object.keys(ns.connected).length);
-    //    if (getSocketForAnimal(animal)) {
-    //        next(new Error('Already connected'));
-    //        return;
-    //    }
-    //    next();
-    //});
+    ns.use((socket, next) => {
+        console.log("ns.use Object.keys(ns.connected).length", Object.keys(ns.connected).length);
+        if (getSocketForAnimal(animal)) {
+            next(new Error('Already connected'));
+            return;
+        }
+        next();
+    });
 }
 
 app.get('/', (req, res) => res.send('Welcome to AnimalProxy!'));
