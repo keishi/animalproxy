@@ -27,14 +27,14 @@ socket.on("fullSync", (data) => {
     }
 });
 
-socket.on("clientDisconnected", (data) => {
+socket.on("clientDisconnected", (clientData) => {
     let row = document.getElementById(`client-row-${clientData.clientId}`);
-    row.parentNode.replaceChild(clientList.appendChild(generateClientRow()), row);
+    row.parentNode.replaceChild(clientList.appendChild(generateClientRow(clientData)), row);
 });
 
-socket.on("clientConnected", (data) => {
+socket.on("clientConnected", (clientData) => {
     let row = document.getElementById(`client-row-${clientData.clientId}`);
-    row.parentNode.replaceChild(clientList.appendChild(generateClientRow(data)), row);
+    row.parentNode.replaceChild(clientList.appendChild(generateClientRow(clientData)), row);
 });
 
 function forceDisconnectClient(clientId) {
