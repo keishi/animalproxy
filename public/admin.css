@@ -21,8 +21,8 @@ tr {
 
 .force-disconnect-button {
     -webkit-appearance: none;
-    width: 0;
-    height: 0;
+    width: 24px;
+    height: 24px;
     background-color: transparent;
     border-style: none;
 }
