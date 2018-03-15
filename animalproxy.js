@@ -109,7 +109,6 @@ adminNs.on('connect', function (socket) {
     });
     socket.on('forceDisconnectClient', function (data) {
         let socket = getSocketForAnimal(data.clientId);
-        console.log("forceDisconnectClient", data.clientId, socket);
         if (socket) {
             socket.disconnect(true);
         }
