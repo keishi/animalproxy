@@ -10,6 +10,7 @@ function generateClientRow(clientData) {
     let row = document.createElement('tr');
     row.id = `client-row-${clientData.clientId}`;
     let connected = !!clientData.socketId;
+    row.classList.toggle('connected', connected);
     row.innerHTML = `
         <td>${clientData.clientId}</td>
         <td>${clientData.socketId}</td>
