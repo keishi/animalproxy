@@ -7,15 +7,15 @@ let domContentLoadedPromise = new Promise((resolve, reject) => {
 });
 
 function generateClientRow(clientData) {
-    let frag = document.createDocumentFragment();
+    let row = document.createElement('tr');
+    row.id = `client-row-${clientData.clientId}`;
     let connected = !!clientData.socketId;
-    frag.innerHTML = `<tr id="client-row-${clientData.clientId}">
+    row.innerHTML = `
         <td>${clientData.clientId}</td>
         <td>${clientData.socketId}</td>
         <td>${connected ? `<a href="javascript:forceDisconnectClient('${clientData.clientId}')">force disconnect</a>` : ''}</td>
-    </tr>`;
-    console.log(frag);
-    return frag;
+    `;
+    return row;
 }
 
 socket.on("fullSync", (data) => {
@@ -24,7 +24,6 @@ socket.on("fullSync", (data) => {
     for (let clientData of data.clients) {
         clientList.appendChild(generateClientRow(clientData));
     }
-    console.log(clientList);
 });
 
 socket.on("clientDisconnected", (data) => {
