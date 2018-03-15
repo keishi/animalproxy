@@ -14,6 +14,7 @@ function generateClientRow(clientData) {
         <td>${clientData.socketId}</td>
         <td>${connected ? `<a href="javascript:forceDisconnectClient('${clientData.clientId}')">force disconnect</a>` : ''}</td>
     </tr>`;
+    console.log(frag);
     return frag;
 }
 
@@ -23,6 +24,7 @@ socket.on("fullSync", (data) => {
     for (let clientData of data.clients) {
         clientList.appendChild(generateClientRow(clientData));
     }
+    console.log(clientList);
 });
 
 socket.on("clientDisconnected", (data) => {
