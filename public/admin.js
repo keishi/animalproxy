@@ -9,6 +9,7 @@ let domContentLoadedPromise = new Promise((resolve, reject) => {
 function generateClientRow(clientData) {
     let row = document.createElement('tr');
     row.id = `client-row-${clientData.clientId}`;
+    row.classList.add('client-row');
     let connected = !!clientData.socketId;
     row.classList.toggle('connected', connected);
     row.innerHTML = `

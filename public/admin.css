@@ -6,6 +6,6 @@ body {
     background-color: lightgreen;
 }
 
-tr {
+.client-row {
     background-color: lightgray;
 }
