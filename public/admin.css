@@ -2,7 +2,7 @@ body {
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
-.connected {
+.client-row.connected {
     background-color: lightgreen;
 }
 
