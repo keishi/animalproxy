@@ -107,18 +107,13 @@ adminNs.on('connect', function (socket) {
     socket.emit('fullSync', {
         clients: getAllClients()
     });
-});
-adminNs.on('reconnect', function (socket) {
-    socket.emit('fullSync', {
-        clients: getAllClients()
+    socket.on('forceDisconnectClient', function (data) {
+        let socket = getSocketForAnimal(data.clientId);
+        console.log("forceDisconnectClient", data.clientId, socket);
+        if (socket) {
+            socket.disconnect(true);
+        }
     });
-});
-adminNs.on('forceDisconnectClient', function (data) {
-    let socket = getSocketForAnimal(data.clientId);
-    console.log("forceDisconnectClient", data.clientId, socket);
-    if (socket) {
-        socket.disconnect(true);
-    }
 });
 
 for (let animal of ANIMALS) {
