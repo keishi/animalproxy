@@ -91,7 +91,7 @@ function getSocketForAnimal(animal) {
 }
 
 function getAllClients() {
-    let clients = {};
+    let clients = [];
     for (let animal of ANIMALS) {
         let socket = getSocketForAnimal();
         clients.push({
