@@ -122,15 +122,8 @@ adminNs.on('forceDisconnectClient', function (data) {
 
 for (let animal of ANIMALS) {
     let ns = io.of(`/${animal}`);
-    ns.on('connection', function (socket) {
-        console.log("connection", animal, Object.keys(ns.connected).length);
-        if (Object.keys(ns.connected).length > 1) {
-            socket.emit('ConnectionFailed', {
-                message: `Animal is already connected: ${animal}`
-            });
-            socket.disconnect(true);
-            return;
-        }
+    ns.on('connect', function (socket) {
+        console.log("connect", animal, Object.keys(ns.connected).length);
         adminNs.emit('clientConnected', {
             clientId: animal,
             socketId: socket.id
