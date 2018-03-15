@@ -8,11 +8,11 @@ let domContentLoadedPromise = new Promise((resolve, reject) => {
 
 function generateClientRow(clientData) {
     let frag = document.createDocumentFragment();
-    let connected = !!data.socketId;
+    let connected = !!clientData.socketId;
     frag.innerHTML = `<tr id="client-row-${clientData.clientId}">
-        <td>${data.clientId}</td>
-        <td>${data.socketId}</td>
-        <td>${connected ? `<a href="javascript:forceDisconnectClient('${data.clientId}')">force disconnect</a>` : ''}</td>
+        <td>${clientData.clientId}</td>
+        <td>${clientData.socketId}</td>
+        <td>${connected ? `<a href="javascript:forceDisconnectClient('${clientData.clientId}')">force disconnect</a>` : ''}</td>
     </tr>`;
     return frag;
 }
