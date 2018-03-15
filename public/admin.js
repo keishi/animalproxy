@@ -20,7 +20,7 @@ function generateClientRow(clientData) {
 }
 
 socket.on("fullSync", (data) => {
-    document.getElementById('content').innerHTML = `<h2>Clients</h2><table id="client-list"></table>`;
+    document.getElementById('content').innerHTML = `<h2>Clients</h2><table id="client-list"><thead><tr><th>Client ID</th><th>Socket ID</th><th></th><tr></thead></table>`;
     let clientList = document.getElementById("client-list");
     for (let clientData of data.clients) {
         clientList.appendChild(generateClientRow(clientData));
