@@ -2,6 +2,7 @@
 
 const http = require('http');
 const url = require('url');
+const path = require('path');
 const WebSocket = require('ws');
 const express = require('express');
 const bodyParser = require('body-parser');
