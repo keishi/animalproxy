@@ -94,13 +94,10 @@ function getAllClients() {
     let clients = {};
     for (let animal of ANIMALS) {
         let socket = getSocketForAnimal();
-        if (!socket) {
-            clients[animal] = null;
-            continue;
-        }
-        clients[animal] = {
-            socketId: socket.id
-        }
+        clients.push({
+            clientId: animal,
+            socketId: socket ? socket.id : '',
+        });
     }
     return clients;
 }
@@ -139,9 +136,10 @@ for (let animal of ANIMALS) {
             socketId: socket.id
         });
         socket.on('disconnect', () => {
-            adminNs.emit('clientConnected', {
+            adminNs.emit('clientDisconnected', {
                 clientId: animal,
-                socketId: socket.id
+                socketId: "",
+                oldSocketId: socket.id
             });
         });
     });
