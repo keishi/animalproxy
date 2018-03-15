@@ -18,3 +18,11 @@ th, td {
 tr {
     line-height: 32px;
 }
+
+.force-disconnect-button {
+    -webkit-appearance: none;
+    width: 0;
+    height: 0;
+    background-color: transparent;
+    border-style: none;
+}
