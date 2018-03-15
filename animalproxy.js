@@ -128,7 +128,7 @@ for (let animal of ANIMALS) {
             socket.emit('ConnectionFailed', {
                 message: `Animal is already connected: ${animal}`
             });
-            //socket.disconnect(true);
+            socket.disconnect(true);
             return;
         }
         adminNs.emit('clientConnected', {
