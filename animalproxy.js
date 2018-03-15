@@ -9,6 +9,7 @@ const ActionsSdkApp = require('actions-on-google').ActionsSdkApp;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')))
 const server = http.Server(app);
 var io = require('socket.io')(server);
 
@@ -88,6 +89,39 @@ function getSocketForAnimal(animal) {
     return Object.values(io.of(`/${animal}`).connected)[0]
 }
 
+function getAllClients() {
+    let clients = {};
+    for (let animal of ANIMALS) {
+        let socket = getSocketForAnimal();
+        if (!socket) {
+            clients[animal] = null;
+            continue;
+        }
+        clients[animal] = {
+            socketId: socket.id
+        }
+    }
+    return clients;
+}
+
+let adminNs = io.of(`/admin`);
+adminNs.on('connect', function (socket) {
+    socket.emit('fullSync', {
+        clients: getAllClients()
+    });
+});
+adminNs.on('reconnect', function (socket) {
+    socket.emit('fullSync', {
+        clients: getAllClients()
+    });
+});
+adminNs.on('forceDisconnectClient', function (data) {
+    let socket = getSocketForAnimal(data.clientId);
+    if (socket) {
+        socket.disconnect();
+    }
+});
+
 for (let animal of ANIMALS) {
     let ns = io.of(`/${animal}`);
     ns.on('connection', function (socket) {
@@ -97,17 +131,27 @@ for (let animal of ANIMALS) {
                 message: `Animal is already connected: ${animal}`
             });
             //socket.disconnect(true);
-        }
-    });
-    ns.use((socket, next) => {
-        console.log("ns.use Object.keys(ns.connected).length", Object.keys(ns.connected).length);
-        if (getSocketForAnimal(animal)) {
-            next(new Error('Already connected'));
             return;
         }
-        next();
+        adminNs.emit('clientConnected', {
+            clientId: animal,
+            socketId: socket.id
+        });
+        socket.on('disconnect', () => {
+            adminNs.emit('clientConnected', {
+                clientId: animal,
+                socketId: socket.id
+            });
+        });
     });
-    ns.on('test', (x) => { console.log(x) })
+    //ns.use((socket, next) => {
+    //    console.log("ns.use Object.keys(ns.connected).length", Object.keys(ns.connected).length);
+    //    if (getSocketForAnimal(animal)) {
+    //        next(new Error('Already connected'));
+    //        return;
+    //    }
+    //    next();
+    //});
 }
 
 app.get('/', (req, res) => res.send('Welcome to AnimalProxy!'));
