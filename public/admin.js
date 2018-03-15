@@ -14,7 +14,7 @@ function generateClientRow(clientData) {
     row.innerHTML = `
         <td>${clientData.clientId}</td>
         <td>${clientData.socketId}</td>
-        <td>${connected ? `<a href="javascript:forceDisconnectClient('${clientData.clientId}')">force disconnect</a>` : ''}</td>
+        <td>${connected ? `<a href="javascript:forceDisconnectClient('${clientData.clientId}')"><i class="material-icons">cancel</i></a>` : ''}</td>
     `;
     return row;
 }
