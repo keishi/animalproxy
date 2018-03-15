@@ -29,12 +29,12 @@ socket.on("fullSync", (data) => {
 
 socket.on("clientDisconnected", (clientData) => {
     let row = document.getElementById(`client-row-${clientData.clientId}`);
-    row.parentNode.replaceChild(clientList.appendChild(generateClientRow(clientData)), row);
+    row.parentNode.replaceChild(generateClientRow(clientData), row);
 });
 
 socket.on("clientConnected", (clientData) => {
     let row = document.getElementById(`client-row-${clientData.clientId}`);
-    row.parentNode.replaceChild(clientList.appendChild(generateClientRow(clientData)), row);
+    row.parentNode.replaceChild(generateClientRow(clientData), row);
 });
 
 function forceDisconnectClient(clientId) {
