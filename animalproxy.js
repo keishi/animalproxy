@@ -30,7 +30,9 @@ const ANIMALS = [
     "flamingo",
     "pelican",
     "iguana",
-    "panda"
+    "panda",
+    "seagull",
+    "monkey"
 ];
 
 let ANIMAL_PATTERNS = [
@@ -49,7 +51,9 @@ let ANIMAL_PATTERNS = [
     ["flamingo", /フラミンゴさん/],
     ["pelican", /ペリカンさん/],
     ["iguana", /イグアナさん/],
-    ["panda", /パンダさん/]
+    ["panda", /パンダさん/],
+    ["seagull", /カモメの水兵さん/],
+    ["monkey", /(?:おサル|お猿|おさる)さん/]
 ];
 function detectAnimal(str) {
     for (let item of ANIMAL_PATTERNS) {
@@ -75,7 +79,9 @@ const LOCALIZED_STRINGS = {
     "flamingo": "フラミンゴさん",
     "pelican": "ペリカンさん",
     "iguana": "イグアナさん",
-    "panda": "パンダさん"
+    "panda": "パンダさん",
+    "seagull": "かもめの水兵さん",
+    "monkey": "おさるさん"
 };
 
 function localize(str) {
