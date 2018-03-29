@@ -83,7 +83,11 @@ function localize(str) {
 }
 
 function detectGoodBye(str) {
-    return str == "さようなら" || /(?:失礼（?:致|いた）?しま)/.test(str);
+    return str == "さようなら" || str == "バイバイ" || /(?:失礼（?:致|いた）?しま)/.test(str);
+}
+
+function detectQuit(str) {
+    return str == "終了する" || str == "強制終了";
 }
 
 function getSocketForAnimal(animal) {
@@ -157,6 +161,10 @@ function mainIntent(sdk) {
 function rawInput(sdk) {
     let state = sdk.getDialogState();
     let input = sdk.getRawInput();
+    if (detectQuit(input)) {
+        sdk.tell({ speech: `アニマルサーチのご利用ありがとうございました`, displayText: `アニマルサーチのご利用ありがとうございました` });
+        return;
+    }
     if (!state["animal"]) {
         let animal = detectAnimal(input);
         if (animal) {
@@ -183,7 +191,7 @@ function rawInput(sdk) {
     }
     let animal = state["animal"];
     if (detectGoodBye(input)) {
-        sdk.ask({ speech: "またねー", displayText: "またねー" }, {
+        sdk.ask({ speech: `またねー。${localize(animal)}との通話が終了しました。次は誰と話しますか？`, displayText: `またねー。${localize(animal)}との通話が終了しました。次は誰と話しますか？` }, {
             animal: ""
         });
         return;
