@@ -52,7 +52,7 @@ let ANIMAL_PATTERNS = [
     ["pelican", /ペリカンさん/],
     ["iguana", /イグアナさん/],
     ["panda", /パンダさん/],
-    ["seagull", /カモメの水兵さん/],
+    ["seagull", /(?:カモメ|かもめ)の水兵さん/],
     ["monkey", /(?:おサル|お猿|おさる)さん/]
 ];
 function detectAnimal(str) {
