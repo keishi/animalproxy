@@ -245,7 +245,7 @@ function mediaStatusIntent(sdk) {
       } else if (status === sdk.Media.Status.FINISHED) {
         sdk.ask('ん！');
       } else {
-        console.log(`unknown media status: ${status}`);
+        sdk.ask('ん！');
       }
 }
 
