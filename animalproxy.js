@@ -239,6 +239,7 @@ function rawInput(sdk) {
 
 function mediaStatusIntent(sdk) {
     const status = sdk.getMediaStatus();
+    console.log(`media status: ${status}`);
       if (status === sdk.Media.Status.FINISHED) {
           sdk.ask('ん！');
       } else if (status === sdk.Media.Status.FINISHED) {
