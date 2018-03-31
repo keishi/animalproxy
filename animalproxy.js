@@ -215,6 +215,7 @@ function rawInput(sdk) {
             query: input
         }, (data) => {
             if (data.startsWith('https://') >= 0) {
+                console.log("media response");
                 const mediaResponse = sdk.buildMediaResponse()
                 mediaResponse.addMediaObjects([
                     sdk.buildMediaObject("Test MP3", data)
@@ -224,6 +225,7 @@ function rawInput(sdk) {
                     .addMediaResponse(mediaResponse);
                 sdk.ask(richResponse, state);
             } else if (data.indexOf('<speak>') >= 0) {
+                console.log("ssml");
               const inputPrompt = sdk.buildInputPrompt(true, data);
               sdk.ask(inputPrompt, state);
             } else {
