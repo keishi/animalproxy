@@ -7,6 +7,8 @@ const WebSocket = require('ws');
 const express = require('express');
 const bodyParser = require('body-parser');
 const ActionsSdkApp = require('actions-on-google').ActionsSdkApp;
+const MediaResponse = require('actions-on-google').MediaResponse;
+const RichResponse = require('actions-on-google').RichResponse;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -216,13 +218,12 @@ function rawInput(sdk) {
         }, (data) => {
             if (data.startsWith('https://') >= 0) {
                 console.log("media response");
-                const mediaResponse = sdk.buildMediaResponse()
+                const mediaResponse = new MediaResponse();
                 mediaResponse.addMediaObjects([
                     sdk.buildMediaObject("Test MP3", data)
                 ]);
-                const richResponse =
-                    sdk.buildRichResponse()
-                    .addMediaResponse(mediaResponse);
+                const richResponse = new RichResponse();
+                richResponse.addMediaResponse(mediaResponse);
                 sdk.ask(richResponse, state);
             } else if (data.indexOf('<speak>') >= 0) {
                 console.log("ssml");
