@@ -237,12 +237,24 @@ function rawInput(sdk) {
     });
 }
 
+function mediaStatusIntent(sdk) {
+    const status = sdk.getMediaStatus();
+      if (status === sdk.Media.Status.FINISHED) {
+          sdk.ask('ん！');
+      } else if (status === sdk.Media.Status.FINISHED) {
+        sdk.ask('ん！');
+      } else {
+        console.log(`unknown media status: ${status}`);
+      }
+}
+
 app.post('/', function (request, response, next) {
     console.log(JSON.stringify(request.body));
     let sdk = new ActionsSdkApp({ request, response });
     let actionMap = new Map();
     actionMap.set(sdk.StandardIntents.MAIN, mainIntent);
     actionMap.set(sdk.StandardIntents.TEXT, rawInput);
+    actionMap.set(sdk.StandardIntents.MEDIA_STATUS, mediaStatusIntent);    
 
     sdk.handleRequestAsync(actionMap);
 });
