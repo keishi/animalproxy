@@ -241,7 +241,7 @@ function mediaStatusIntent(sdk) {
     let state = sdk.getDialogState();
     const status = sdk.getMediaStatus();
     console.log(`media status: ${status}`, state);
-    sdk.ask('再生が終わりました。', state);
+    sdk.ask('で？', state);
 }
 
 function cancelIntent(sdk) {
