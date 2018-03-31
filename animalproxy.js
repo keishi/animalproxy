@@ -218,7 +218,7 @@ function rawInput(sdk) {
                 console.log("media response");
                 console.log(sdk.constructor);
                 console.dir(sdk);
-                const mediaResponse = sdk.buildMediaResponse()
+                const mediaResponse = sdk.buildMediaResponse();
                 mediaResponse.addMediaObjects([
                     sdk.buildMediaObject("Test MP3", data)
                 ]);
@@ -240,7 +240,7 @@ function rawInput(sdk) {
 app.post('/', function (request, response, next) {
     console.log(JSON.stringify(request.body));
     let sdk = new ActionsSdkApp({ request, response });
-
+    sdk.buildMediaResponse();
     let actionMap = new Map();
     actionMap.set(sdk.StandardIntents.MAIN, mainIntent);
     actionMap.set(sdk.StandardIntents.TEXT, rawInput);
