@@ -214,7 +214,12 @@ function rawInput(sdk) {
         socket.emit('action', {
             query: input
         }, (data) => {
-            sdk.ask({ speech: data, displayText: data }, state);
+            if (data.indexOf('<speak>') >= 0) {
+              const inputPrompt = app.buildInputPrompt(true, data, noInputs);
+              app.ask(inputPrompt, state);
+            } else {
+              sdk.ask({ speech: data, displayText: data }, state);
+            }
         });
     });
 }
