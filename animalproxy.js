@@ -240,13 +240,11 @@ function rawInput(sdk) {
 function mediaStatusIntent(sdk) {
     const status = sdk.getMediaStatus();
     console.log(`media status: ${status}`);
-      if (status === sdk.Media.Status.FINISHED) {
-          sdk.ask('ん！');
-      } else if (status === sdk.Media.Status.FINISHED) {
-        sdk.ask('ん！');
-      } else {
-        sdk.ask('ん！');
-      }
+    sdk.ask('再生が終わりました。');
+}
+
+function cancelIntent(sdk) {
+      sdk.tell('終了します。');
 }
 
 app.post('/', function (request, response, next) {
@@ -255,7 +253,8 @@ app.post('/', function (request, response, next) {
     let actionMap = new Map();
     actionMap.set(sdk.StandardIntents.MAIN, mainIntent);
     actionMap.set(sdk.StandardIntents.TEXT, rawInput);
-    actionMap.set(sdk.StandardIntents.MEDIA_STATUS, mediaStatusIntent);    
+    actionMap.set(sdk.StandardIntents.MEDIA_STATUS, mediaStatusIntent);
+    actionMap.set(sdk.StandardIntents.CANCEL, cancelIntent);
 
     sdk.handleRequestAsync(actionMap);
 });
