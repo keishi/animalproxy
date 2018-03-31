@@ -222,7 +222,7 @@ function rawInput(sdk) {
                 ]);
                 const richResponse =
                     sdk.buildRichResponse()
-                        .addSimpleResponse('')
+                        .addSimpleResponse('a')
                         .addMediaResponse(mediaResponse)
                         .addSuggestions(["foo"]);
                 sdk.ask(richResponse, state);
