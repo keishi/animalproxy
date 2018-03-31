@@ -222,9 +222,9 @@ function rawInput(sdk) {
                 ]);
                 const richResponse =
                     sdk.buildRichResponse()
-                        .addSimpleResponse('a')
+                        .addSimpleResponse('見つかりました')
                         .addMediaResponse(mediaResponse)
-                        .addSuggestions(["foo"]);
+                        .addSuggestions(["前の回を聞く"]);
                 sdk.ask(richResponse, state);
             } else if (data.indexOf('<speak>') >= 0) {
               console.log("ssml");
