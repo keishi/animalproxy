@@ -215,8 +215,8 @@ function rawInput(sdk) {
             query: input
         }, (data) => {
             if (data.indexOf('<speak>') >= 0) {
-              const inputPrompt = app.buildInputPrompt(true, data);
-              app.ask(inputPrompt, state);
+              const inputPrompt = sdk.buildInputPrompt(true, data);
+              sdk.ask(inputPrompt, state);
             } else {
               sdk.ask({ speech: data, displayText: data }, state);
             }
