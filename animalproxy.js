@@ -222,7 +222,7 @@ function rawInput(sdk) {
                 ]);
                 const richResponse =
                     sdk.buildRichResponse()
-                        .addSimpleResponse('見つかりました')
+                        .addSimpleResponse('ん！')
                         .addMediaResponse(mediaResponse)
                         .addSuggestions(["前の回を聞く"]);
                 sdk.ask(richResponse, state);
