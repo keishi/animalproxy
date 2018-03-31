@@ -238,9 +238,10 @@ function rawInput(sdk) {
 }
 
 function mediaStatusIntent(sdk) {
+    let state = sdk.getDialogState();
     const status = sdk.getMediaStatus();
     console.log(`media status: ${status}`);
-    sdk.ask('再生が終わりました。');
+    sdk.ask('再生が終わりました。', state);
 }
 
 function cancelIntent(sdk) {
