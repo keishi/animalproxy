@@ -214,7 +214,16 @@ function rawInput(sdk) {
         socket.emit('action', {
             query: input
         }, (data) => {
-            if (data.indexOf('<speak>') >= 0) {
+            if (data.startsWith('https://') >= 0) {
+                const mediaResponse = sdk.buildMediaResponse()
+                mediaResponse.addMediaObjects([
+                    sdk.buildMediaObject("Test MP3", data)
+                ]);
+                const richResponse =
+                    sdk.buildRichResponse()
+                    .addMediaResponse(mediaResponse);
+                sdk.ask(richResponse, state);
+            } else if (data.indexOf('<speak>') >= 0) {
               const inputPrompt = sdk.buildInputPrompt(true, data);
               sdk.ask(inputPrompt, state);
             } else {
