@@ -222,7 +222,9 @@ function rawInput(sdk) {
                 ]);
                 const richResponse =
                     sdk.buildRichResponse()
-                    .addMediaResponse(mediaResponse);
+                        .addSimpleResponse('')
+                        .addMediaResponse(mediaResponse)
+                        .addSuggestions(["foo"]);
                 sdk.ask(richResponse, state);
             } else if (data.indexOf('<speak>') >= 0) {
               console.log("ssml");
