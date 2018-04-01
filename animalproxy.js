@@ -214,6 +214,7 @@ function rawInput(sdk) {
         socket.emit('action', {
             query: input
         }, (data) => {
+            try {
             if (data.startsWith('https://')) {
                 console.log("media response");
                 const mediaResponse = sdk.buildMediaResponse();
@@ -232,6 +233,10 @@ function rawInput(sdk) {
               sdk.ask(inputPrompt, state);
             } else {
               sdk.ask({ speech: data, displayText: data }, state);
+            }
+            } catch(e) {
+                console.log(e);
+                sdk.tell("エラーが起こりました");
             }
         });
     });
