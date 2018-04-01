@@ -214,7 +214,7 @@ function rawInput(sdk) {
         socket.emit('action', {
             query: input
         }, (data) => {
-            if (data.startsWith('https://') >= 0) {
+            if (data.startsWith('https://')) {
                 console.log("media response");
                 const mediaResponse = sdk.buildMediaResponse();
                 mediaResponse.addMediaObjects([
